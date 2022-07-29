@@ -54,16 +54,25 @@ class Solution {
 //        return res;
 
         //回溯
-//        for (int i = 0; i < nums.length; i++) {
-//            backtracking(nums, res, i + 1, 0, new ArrayList<Integer>());
-//        }
+        res.add(new ArrayList<>());
+        for (int i = 0; i < nums.length; i++) {
+            backtracking(nums, res, i + 1, 0, new ArrayList<Integer>());
+        }
 
         //DFS
 
-        dfs(nums, res, new ArrayList<Integer>(), 0);
+//        dfs(nums, res, new ArrayList<Integer>(), 0);
         return res;
     }
 
+
+    /**
+     * DFS depth first search
+     * @param nums 待搜索数组
+     * @param res 结果集
+     * @param list 子集
+     * @param index 开始搜索索引
+     */
     private void dfs(int[] nums, List<List<Integer>> res, ArrayList<Integer> list, int index) {
         res.add(new ArrayList<>(list));
         for (int i = index; i < nums.length; i++) {
@@ -73,6 +82,15 @@ class Solution {
         }
     }
 
+    /**
+     * 回溯法
+     *
+     * @param nums  需进行回溯的数组
+     * @param res   结果集
+     * @param len   子集最长长度
+     * @param index 数组遍历起点索引
+     * @param list  子集
+     */
     private void backtracking(int[] nums, List<List<Integer>> res, int len, int index, ArrayList<Integer> list) {
         if (list.size() == len) {
             res.add(new ArrayList<>(list));

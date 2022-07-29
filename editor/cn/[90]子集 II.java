@@ -35,28 +35,41 @@
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        res.add(new ArrayList<>());
-        for (int i = 0; i < nums.length; i++) {
-            backtrack(nums, res, i + 1, new ArrayList<Integer>());
-        }
+        Arrays.sort(nums);
+        boolean[] used = new boolean[nums.length];
+        backtracking(nums, used, res, new ArrayList<Integer>(), 0);
+        return res;
     }
 
     /**
      * 回溯
-     * @param nums 
-     * @param res
-     * @param len
-     * @param list
+     *
+     * @param nums  回溯数组
+     * @param used  数组使用记录
+     * @param res   结果集
+     * @param list  字结果集
+     * @param index 数组遍历起点
      */
-    private void backtrack(int[] nums, List<List<Integer>> res, int len, ArrayList<Integer> list) {
-
-
+    private void backtracking(int[] nums, boolean[] used, List<List<Integer>> res, ArrayList<Integer> list, int index) {
+        res.add(new ArrayList<>(list));
+        for (int i = index; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
+                continue;
+            }
+            used[i] = true;
+            list.add(nums[i]);
+            backtracking(nums, used, res, list, i + 1);
+            list.remove(list.size() - 1);
+            used[i] = false;
+        }
     }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

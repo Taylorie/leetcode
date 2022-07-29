@@ -36,12 +36,30 @@
 // Related Topics 回溯 👍 1065 👎 0
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        backtracking(n, k, res, new ArrayList<Integer>(), 1);
+        return res;
+    }
 
+    private void backtracking(int n, int k, List<List<Integer>> res, ArrayList<Integer> list, int index) {
+//        if (list.size() == 0 && index > n - k+1) {
+//            return;
+//        }
+        if (list.size() == k) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = index; i<=n-(k-list.size())+1; i++) {
+            list.add(i);
+            backtracking(n, k, res, list, i + 1);
+            list.remove(list.size() - 1);
+        }
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
