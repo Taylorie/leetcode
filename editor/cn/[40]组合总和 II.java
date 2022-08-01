@@ -41,12 +41,38 @@
 // Related Topics 数组 回溯 👍 1049 👎 0
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(candidates);
+        boolean[] used = new boolean[candidates.length];
+        backtracking(candidates, res, target, new ArrayList<Integer>(), used, 0);
+        return res;
+    }
 
+    private void backtracking(int[] candidates, List<List<Integer>> res, int target, ArrayList<Integer> list, boolean[] used, int index) {
+        if (target == 0) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = index; i < candidates.length; i++) {
+            if (target - candidates[i] < 0) {
+                return;
+            }
+            if (i > 0 && candidates[i] == candidates[i - 1] && !used[i - 1]) {
+                continue;
+            }
+            list.add(candidates[i]);
+            used[i] = true;
+            backtracking(candidates, res, target - candidates[i], list, used, i + 1);
+            used[i] = false;
+            list.remove(list.size() - 1);
+        }
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
