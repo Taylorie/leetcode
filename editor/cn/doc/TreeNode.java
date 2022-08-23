@@ -1,4 +1,4 @@
-package Construction;
+package doc;
 
 /**
  * @author zhang.yu

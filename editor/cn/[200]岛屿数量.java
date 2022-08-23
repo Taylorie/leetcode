@@ -41,37 +41,43 @@
 // grid[i][j] 的值为 '0' 或 '1' 
 // 
 //
-// Related Topics 深度优先搜索 广度优先搜索 并查集 数组 矩阵 👍 1825 👎 0
+// Related Topics 深度优先搜索 广度优先搜索 并查集 数组 矩阵 👍 1831 👎 0
 
-
-import jdk.nashorn.api.tree.ReturnTree;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int numIslands(char[][] grid) {
-        int row = grid.length;
-        int col = grid[0].length;
-        int result = 0;
-        for (int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[x].length; y++) {
-                if (grid[x][y] == '1') {
-                    ++result;
-                    dfs(grid, result, row, col, x, y);
-                }
-            }
-        }
-        return result;
+
     }
 
-    private void dfs(char[][] grid, int result, int row, int col, int x, int y) {
-        if (x < 0 || y < 0 || x >= row || y >= col || grid[x][y] == '0') {
-            return;
+    class UnionFind {
+        private int[] root;
+        private int count;
+
+        public UnionFind(char[][] grid) {
+            root = new int[grid.length * grid[0].length];
+            count = grid.length * grid[0].length;
+            for (int i = 0; i < root.length; i++) {
+                root[i] = i;
+            }
         }
-        grid[x][y] = '0';
-        dfs(grid, result, row, col, x + 1, y);
-        dfs(grid, result, row, col, x - 1, y);
-        dfs(grid, result, row, col, x, y + 1);
-        dfs(grid, result, row, col, x, y - 1);
+
+        public int find(int x) {
+            if (root[x] == x) {
+                return x;
+            } else {
+                return root[x] = find(root[x]);
+            }
+        }
+
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+
+            if (rootX != rootY) {
+                root[rootX] = rootY;
+            }
+        }
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

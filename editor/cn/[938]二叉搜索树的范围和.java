@@ -32,7 +32,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
-//import Construction.TreeNode;
+//import doc.TreeNode;
 //
 
 /**

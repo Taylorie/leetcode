@@ -54,4 +54,23 @@ class Solution {
         if (l > r) backtracking(res, l, r + 1, s+")", n);
     }
 }
+
+class TreeNode {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode() {
+    }
+
+    public TreeNode(int val) {
+        this.val = val;
+    }
+
+    public TreeNode(int val, doc.TreeNode left, doc.TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
 //leetcode submit region end(Prohibit modification and deletion)
